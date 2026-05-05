@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="main-html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Spot Impact Optimization | Ahmed Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #38bdf8; 
+            --accent: #7dd3fc;  
+            --danger: #ef4444;
+            --success: #10b981;
+            --bg-dark: #020617; 
+            --bg-light: #f8fafc; 
+            --surface-dark: rgba(15, 23, 42, 0.6); 
+            --surface-light: #ffffff;
+        }
+
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            text-align: right;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        body.light-mode { background-color: var(--bg-light); color: #1e293b; }
+
+        #particles-js { position: fixed; width: 100%; height: 100%; z-index: -1; top: 0; left: 0; opacity: 0.3; transition: 0.5s; }
+        
+        .hero-glow { 
+            position: absolute; top: -10%; left: 50%; transform: translateX(-50%); 
+            width: 800px; height: 800px; 
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(2, 6, 23, 0) 70%); 
+            z-index: -1; transition: 0.5s;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; position: relative; }
+
+        .nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 100px; }
+        .back-btn { color: #a1a1aa; text-decoration: none; font-weight: 600; transition: 0.3s; font-size: 14px; }
+        .back-btn:hover { color: var(--primary); }
+
+        .hero { margin-bottom: 80px; }
+        .client-pill { 
+            background: rgba(56, 189, 248, 0.1); 
+            color: var(--accent); 
+            padding: 8px 18px; 
+            border-radius: 100px; 
+            font-size: 13px; 
+            font-weight: 700; 
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 { font-size: clamp(35px, 6vw, 65px); font-weight: 900; margin: 0; line-height: 1.1; letter-spacing: -2px; }
+        .hero p { color: #a1a1aa; font-size: 20px; max-width: 700px; margin-top: 20px; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 80px; }
+        .stat-item { 
+            background: var(--surface-dark); 
+            backdrop-filter: blur(15px);
+            padding: 25px; 
+            border-radius: 24px; 
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            transition: 0.4s;
+        }
+        .stat-item span { color: #a1a1aa; font-size: 13px; display: block; margin-bottom: 5px; }
+        .stat-item strong { color: var(--accent); font-size: 18px; font-weight: 700; }
+
+        .showcase-title { font-size: 24px; font-weight: 800; margin-bottom: 30px; text-align: center; }
+        .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 100px; }
+        
+        .video-card { 
+            position: relative; 
+            background: var(--surface-dark); 
+            backdrop-filter: blur(15px);
+            border-radius: 30px; 
+            padding: 15px; 
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .video-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .video-card video { width: 100%; border-radius: 20px; display: block; filter: brightness(0.9); background: #000; }
+        
+        .badge { position: absolute; top: 30px; right: 30px; padding: 6px 14px; border-radius: 8px; font-size: 11px; font-weight: 900; z-index: 10; }
+        .bad { background: var(--danger); color: #fff; }
+        .good { background: var(--success); color: #000; }
+
+        .methodology { 
+            background: rgba(15, 23, 42, 0.3); 
+            padding: 80px 40px; 
+            border-radius: 40px; 
+            border: 1px solid rgba(56, 189, 248, 0.1);
+        }
+        .method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .method-item h3 { color: var(--accent); font-size: 24px; margin-bottom: 15px; }
+        .method-item p { color: #a1a1aa; line-height: 1.8; }
+
+        .coffee-section { margin-top: 120px; }
+        .coffee-card {
+            background: var(--surface-dark);
+            backdrop-filter: blur(15px);
+            border-radius: 40px;
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            overflow: hidden;
+        }
+        .coffee-info { padding: 60px; }
+        .coffee-video { padding: 20px; background: rgba(0,0,0,0.2); position: relative; cursor: pointer; }
+        .coffee-video video { width: 100%; border-radius: 20px; filter: brightness(0.9); background: #000; }
+
+        .cta-btn { 
+            display: inline-block; background: var(--success); color: #000; 
+            padding: 22px 55px; border-radius: 100px; text-decoration: none; 
+            font-weight: 900; font-size: 20px; transition: 0.4s;
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.3);
+        }
+
+        .controls-wrapper { display: flex; gap: 10px; align-items: center; }
+        .theme-toggle-btn {
+            width: 42px; height: 42px; border-radius: 50%;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(56, 189, 248, 0.2);
+            color: var(--primary); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s;
+        }
+        
+        .lang-btn {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(56, 189, 248, 0.2);
+            color: var(--primary); padding: 5px 15px; border-radius: 50px; cursor: pointer;
+            font-size: 12px; font-weight: 800; transition: 0.3s;
+        }
+
+        @media (max-width: 900px) {
+            .showcase-grid, .method-grid, .stats-grid, .coffee-card { grid-template-columns: 1fr; }
+            .coffee-info { padding: 30px; }
+            .hero h1 { text-align: center; }
+            .hero p { text-align: center; margin: 20px auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="particles-js"></div>
+<div class="hero-glow" id="glow-effect"></div>
+
+<div class="container">
+    <nav class="nav-header">
+        <a href="index.html" class="back-btn" data-ar="← العودة لمعرض الأعمال" data-en="← Back to Portfolio">← العودة لمعرض الأعمال</a>
+        <div class="controls-wrapper">
+            <button onclick="toggleTheme()" class="theme-toggle-btn" id="theme-btn">
+                <i id="theme-icon" class="fas fa-moon"></i>
+            </button>
+            <button onclick="toggleLanguage()" class="lang-btn" id="lang-btn">English</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="client-pill">CLIENT: SPOT IMPACT AGENCY</div>
+        <h1 data-ar="هندسة الحلول <br>وتحسين الأداء الرقمي" data-en="Solution Engineering <br>& Digital Optimization">هندسة الحلول <br>وتحسين الأداء الرقمي</h1>
+        <p data-ar="دراسة حالة حول كيفية تحويل الأخطاء البرمجية المعطلة إلى تجربة مستخدم سلسة ومستقرة تماماً." data-en="A case study on transforming disruptive software errors into a seamless and stable user experience.">دراسة حالة حول كيفية تحويل الأخطاء البرمجية المعطلة إلى تجربة مستخدم سلسة ومستقرة تماماً.</p>
+    </header>
+
+    <div class="stats-grid">
+        <div class="stat-item"><span data-ar="المشكلة" data-en="The Problem">المشكلة</span><strong data-ar="تعطل نظام اللغات والسمات" data-en="System & Language Failure">تعطل نظام اللغات والسمات</strong></div>
+        <div class="stat-item"><span data-ar="الحل" data-en="The Solution">الحل</span><strong data-ar="إعادة بناء Logic الـ DOM" data-en="DOM Logic Rebuild">إعادة بناء Logic الـ DOM</strong></div>
+        <div class="stat-item"><span data-ar="النتيجة" data-en="The Result">النتيجة</span><strong data-ar="استجابة فورية 100%" data-en="100% Instant Response">استجابة فورية 100%</strong></div>
+    </div>
+
+    <h2 class="showcase-title" data-ar="المعاينة الحية (تعرض بذكاء)" data-en="Live Preview (Smart Display)">المعاينة الحية (تعرض بذكاء)</h2>
+    
+    <div class="showcase-grid">
+        <div class="video-card" onmouseenter="desktopPlay(this)" onmouseleave="desktopPause(this)">
+            <span class="badge bad">THE ISSUE</span>
+            <video poster="thumb-issue.jpg" loop muted playsinline webkit-playsinline preload="metadata">
+                <source src="videos/spot-problem-fixed.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="video-card" onmouseenter="desktopPlay(this)" onmouseleave="desktopPause(this)">
+            <span class="badge good">THE SOLUTION</span>
+            <video poster="thumb-solution.jpg" loop muted playsinline webkit-playsinline preload="metadata">
+                <source src="videos/spot-solution-fixed.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <section class="methodology">
+        <div class="method-grid">
+            <div class="method-item">
+                <h3 data-ar="01. الفحص (Audit)" data-en="01. Audit">01. الفحص (Audit)</h3>
+                <p data-ar="تحليل كامل للموقع الرسمي للوكالة، وتحديد سبب تعطل أزرار التفاعل. اكتشفت أن الكود الحالي يفشل في مزامنة البيانات عند التغيير اللحظي." data-en="Full analysis of the agency's official website, identifying the cause of interaction button failures. I discovered the current code fails to sync data.">تحليل كامل للموقع الرسمي للوكالة، وتحديد سبب تعطل أزرار التفاعل. اكتشفت أن الكود الحالي يفشل في مزامنة البيانات عند التغيير اللحظي.</p>
+            </div>
+            <div class="method-item">
+                <h3 data-ar="02. التنفيذ (Dev)" data-en="02. Development">02. التنفيذ (Dev)</h3>
+                <p data-ar="قمت ببرمجة Logic جديد كلياً يضمن تحديث واجهة المستخدم فورياً باستخدام Vanilla JavaScript، مع الحفاظ على خفة الأداء وتوافق المتصفحات." data-en="I programmed a completely new logic ensuring instant UI updates using Vanilla JavaScript, maintaining performance and browser compatibility.">قمت ببرمجة Logic جديد كلياً يضمن تحديث واجهة المستخدم فورياً باستخدام Vanilla JavaScript، مع الحفاظ على خفة الأداء وتوافق المتصفحات.</p>
+            </div>
+            <div class="method-item">
+                <h3 data-ar="03. التسليم (Impact)" data-en="03. Delivery">03. Delivery</h3>
+                <p data-ar="لم يقتصر العمل على رصد الخطأ، بل تقديم الكود الجاهز للوكالة لضمان عدم خسارة أي عميل محتمل بسبب خلل تقني بسيط في الموقع." data-en="The work wasn't limited to spotting errors, but providing ready code to the agency to ensure no potential clients are lost due to technical glitches.">لم يقتصر العمل على رصد الخطأ، بل تقديم الكود الجاهز للوكالة لضمان عدم خسارة أي عميل محتمل بسبب خلل تقني بسيط في الموقع.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="coffee-section">
+        <div class="coffee-card">
+            <div class="coffee-info">
+                <span class="client-pill" style="background: rgba(34, 197, 94, 0.1); color: var(--success); border-color: rgba(34, 197, 94, 0.2);">E-COMMERCE SPECIALIST</span>
+                <h2 style="font-size: 30px; font-weight: 900; margin-bottom: 20px;" data-ar="صفحة هبوط: مكائن القهوة" data-en="Landing Page: Coffee Machines">صفحة هبوط: مكائن القهوة</h2>
+                <p style="color: #a1a1aa; margin-bottom: 25px;" data-ar="بناء صفحة هبوط متكاملة تركز على تحويل الزوار إلى عملاء (Conversion Rate Optimization)، مع دمج عناصر الإقناع البصري." data-en="Building an integrated landing page focused on Conversion Rate Optimization (CRO), merging visual persuasion elements.">بناء صفحة هبوط متكاملة تركز على تحويل الزوار إلى عملاء (Conversion Rate Optimization)، مع دمج عناصر الإقناع البصري.</p>
+            </div>
+            <div class="coffee-video" onmouseenter="desktopPlay(this)" onmouseleave="desktopPause(this)">
+                <video poster="thumb-coffee.jpg" loop muted playsinline webkit-playsinline preload="metadata">
+                    <source src="videos/coffee-demo-fixed.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <footer class="cta" style="text-align: center; margin-top: 100px; padding-bottom: 80px;">
+        <h2 data-ar="هل أنت جاهز للبدء؟" data-en="?Ready to Start" style="font-size: 42px; font-weight: 900;">هل أنت جاهز للبدء؟</h2>
+        <a href="https://wa.me/966571902873" class="cta-btn" data-ar="ابدأ مشروعك عبر واتساب" data-en="Start your project via WhatsApp" style="margin-top: 30px;">ابدأ مشروعك عبر واتساب</a>
+    </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    // --- نظام الجوال: تشغيل تلقائي عند الظهور على الشاشة ---
+    if (isMobile) {
+        const observerOptions = { threshold: 0.5 };
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.play().catch(() => {});
+                } else {
+                    entry.target.pause();
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('video').forEach(video => videoObserver.observe(video));
+    }
+
+    // --- نظام الكمبيوتر: تشغيل عند مرور الماوس ---
+    function desktopPlay(card) {
+        if (!isMobile) {
+            const video = card.querySelector('video');
+            video.play().catch(() => {});
+        }
+    }
+
+    function desktopPause(card) {
+        if (!isMobile) {
+            const video = card.querySelector('video');
+            video.pause();
+        }
+    }
+
+    function initParticles(color) {
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 40 },
+                "color": { "value": color },
+                "opacity": { "value": 0.2 },
+                "size": { "value": 3 },
+                "line_linked": { "enable": true, "distance": 150, "color": color, "opacity": 0.1 }
+            }
+        });
+    }
+    initParticles("#38bdf8");
+
+    function toggleTheme() {
+        const body = document.body;
+        const icon = document.getElementById('theme-icon');
+        body.classList.toggle('light-mode');
+        if(body.classList.contains('light-mode')) {
+            icon.classList.replace('fa-moon', 'fa-sun');
+            initParticles("#1e293b");
+        } else {
+            icon.classList.replace('fa-sun', 'fa-moon');
+            initParticles("#38bdf8");
+        }
+    }
+
+    let currentLang = 'ar';
+    function toggleLanguage() {
+        currentLang = currentLang === 'ar' ? 'en' : 'ar';
+        document.getElementById('lang-btn').innerText = currentLang === 'ar' ? 'English' : 'العربية';
+        document.querySelectorAll('[data-ar]').forEach(el => {
+            el.innerHTML = el.getAttribute(`data-${currentLang}`);
+        });
+    }
+</script>
+</body>
+</html>
